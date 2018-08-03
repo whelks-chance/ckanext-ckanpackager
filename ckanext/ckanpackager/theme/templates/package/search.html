@@ -1,5 +1,6 @@
 {% extends "page.html" %}
 {% import 'macros/form.html' as form %}
+{% resource 'ckanext-ckanpackager/main' %}
 
 {% block subtitle %}{{ _("Datasets") }}{% endblock %}
 
@@ -41,7 +42,7 @@
             <p class="">{{ _("Select All") }}</p>
           </div>
           <div style="justify-content: flex-end;">
-            <input type="checkbox" checked>
+            <input type="checkbox" checked data-module="ckanpackager-dl-package" data-module-check-type="all">
           </div>
         </div>
 

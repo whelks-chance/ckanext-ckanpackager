@@ -17,6 +17,7 @@ Example:
 {% set truncate_title = truncate_title or 80 %}
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+{% resource 'ckanext-ckanpackager/main' %}
 
 {% block package_item %}
   <li class="{{ item_class or "dataset-item" }}">
@@ -63,7 +64,7 @@ Example:
           {% endblock %}
           </div>
           <div style="justify-content: flex-end;">
-            <input type="checkbox" checked>
+            <input class="package_checkbox" type="checkbox" checked data-module="ckanpackager-dl-package" data-module-package-id="{{ package.id }}">
           </div>
         </div>
 
