@@ -1,6 +1,8 @@
-{% ckan_extends %}
+{# The order of the resource and ckan_extends doesn't seem to matter in this template #}
 
 {% resource 'ckanext-ckanpackager/main' %}
+
+{% ckan_extends %}
 
 {% block form %}
   {{ super() }}
