@@ -1,14 +1,11 @@
 {# Must include this resource... #}
 {% resource 'ckanext-ckanpackager/main' %}
 
-{# ...before extending the template #}
+{# ...before extending the template otherwise CKAN won't run the JS module (for some reason) #}
 {% ckan_extends %}
 
-
 {% block notes %}
-  <div style="float: right;">
-    <input class="package_checkbox" type="checkbox" checked data-module="ckanpackager-dl-package" data-module-package-id="{{ package.id }}">
-  </div>
+  {% snippet 'snippets/package_item_checkbox.html', package=package %}
   {% if notes %}
     <div>{{ notes|urlize }}</div>
   {% else %}

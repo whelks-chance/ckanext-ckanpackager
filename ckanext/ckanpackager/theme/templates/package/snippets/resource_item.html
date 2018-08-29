@@ -10,6 +10,7 @@
   </a>
   {% endblock %}
   {% block resource_item_description %}
+    {% snippet 'snippets/resource_item_checkbox.html', res=res %}
     <p class="description">
       {% if res.description %}
         {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
@@ -17,9 +18,6 @@
     </p>
   {% endblock %}
 
-    <div style="position: absolute; top: 1em; right: 10em">
-      <input type="checkbox" checked data-module="ckanpackager-dl-checkbox" data-module-resource-id="{{ res.id }}">
-    </div>
 
   {% block resource_item_explore %}
   {% if not url_is_edit %}
