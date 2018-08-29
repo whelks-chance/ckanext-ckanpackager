@@ -5,11 +5,9 @@
 {% ckan_extends %}
 
 {% block notes %}
-  {% snippet 'snippets/package_item_checkbox.html', package=package %}
-  {% if notes %}
-    <div>{{ notes|urlize }}</div>
-  {% else %}
-    <p class="empty">{{ _("This dataset has no description") }}</p>
-  {% endif %}
+  <div style="float: right;">AAAA
+    <input class="package_checkbox" type="checkbox" checked data-module="ckanpackager-dl-package" data-module-package-id="{{ package.id }}">
+  </div>
+  {{ super() }}
 {% endblock %}
 
