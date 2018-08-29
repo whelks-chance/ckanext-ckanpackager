@@ -7,9 +7,6 @@ this.ckan.module('ckanpackager-dl-checkbox', function(jQuery, _){
 
     function create_checkboxes(module) {
 
-        console.log("ckanpackager-dl-checkbox.create_checkboxes()");
-
-
         module.el.prop("checked", false);
 
         var dl_list = self.get_data('download_list');
