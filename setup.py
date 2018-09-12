@@ -12,6 +12,7 @@ setup(
 	entry_points="""
 	[ckan.plugins]
 	ckanpackager = ckanext.ckanpackager.plugin:CkanPackagerPlugin
+	filetreeview = ckanext.ckanpackager.views.filetree_view:FileTreeViewPlugin
 	[paste.paster_command]
 	initdb=ckanext.ckanpackager.commands.initdb:CKANPackagerCommand
 	""",

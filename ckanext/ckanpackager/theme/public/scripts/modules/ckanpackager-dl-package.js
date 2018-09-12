@@ -3,7 +3,7 @@
 this.ckan.module('ckanpackager-dl-package', function(jQuery, _){
 
     var self = init_self();
-    
+
     function create_all_checkbox(module) {
 
         console.log("ckanpackager-dl-package.create_all_checkbox()");

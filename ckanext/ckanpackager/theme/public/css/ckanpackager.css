@@ -12,7 +12,7 @@ div.ckanpackager-tab{
 }
 
 div.ckanpackager-form a.btn {
-  margin-right: 16px;
+    margin-right: 16px;
 }
 
 div.ckanpackager-form input {
@@ -56,4 +56,24 @@ a.packager-link.packager-link-active:hover {
 
 .actions li {
     vertical-align: top;
+}
+
+.selected{
+    color: orange;
+}
+.node {
+    position: absolute;
+    list-style: none;
+    cursor: default;
+}
+.node span {
+    margin-right: 3px;
+}
+
+.node .caret {
+    font-size: 10px;
+}
+
+.filesize {
+    color: #2a6496;
 }

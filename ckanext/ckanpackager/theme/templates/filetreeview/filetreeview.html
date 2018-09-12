@@ -1,0 +1,120 @@
+{% extends 'dataviewer/base.html' %}
+
+{% block subtitle %}{% endblock %}
+
+{% block page %}
+
+{% block scripts %}
+<script>
+    var preload_resource = {{ h.literal(resource_json) }};
+    var resource_url = {{ h.literal(resource_url) }};
+</script>
+{% endblock %}
+
+<div>
+    <pre data-module="filetreeview">
+      <!--<div class="loading">-->
+        <!--{{ _('Loading...') }}-->
+      <!--</div>-->
+
+     <!--<div>-->
+         <div id="filetree"></div>
+     <!--</div>-->
+            </pre>
+
+</div>
+
+{% resource 'ckanext-ckanpackager/main' %}
+
+{% endblock %}
+
+
+<!--<div id="all_info">-->
+<!--<br>-->
+<!--<hr/>-->
+
+
+
+<!--<h1>Hello world</h1>-->
+
+<!--{{ title }}-->
+
+<!--Ajax the data in from the resource-->
+
+<!--<br>-->
+<!--<h2>Resource View</h2>-->
+<!--{{ resource_view }}-->
+
+<!--<br>-->
+
+<!--<h2>Resource Dump</h2>-->
+<!--{{ h.literal(h.dump_json(resource or c.resource)) }}-->
+
+<!--<br>-->
+
+<!--<h2>package</h2>-->
+<!--{% for k, v in package.items() %}-->
+<!--<p>K : {{k}}</p>-->
+<!--<p>V : {{v}}</p>-->
+<!--<br>-->
+<!--{% endfor %}-->
+
+<!--<h2>H</h2>-->
+
+<!--var preload_resource = {{ h.literal(resource_json) }}<br><br>-->
+<!--var resource_url = {{ h.literal(resource_url) }}<br><br>-->
+<!--var preview_metadata = {{ h.literal(preview_metadata) }}<br><br>-->
+
+<!--<br>-->
+
+<!--<h2>Resource</h2>-->
+<!--{% for k, v in resource.items() %}-->
+<!--<p>K : {{k}}</p>-->
+<!--<p>V : {{v}}</p>-->
+<!--<br>-->
+<!--{% endfor %}-->
+
+
+
+
+
+<!--<h1>Hello world</h1>-->
+
+<!--{{ title }}-->
+
+<!--Ajax the data in from the resource-->
+
+<!--<br>-->
+<!--<h2>Resource View</h2>-->
+<!--{{ resource_view }}-->
+
+<!--<br>-->
+
+<!--<h2>Resource Dump</h2>-->
+<!--{{ h.literal(h.dump_json(resource or c.resource)) }}-->
+
+<!--<br>-->
+
+<!--<h2>package</h2>-->
+<!--{% for k, v in package.items() %}-->
+<!--<p>K : {{k}}</p>-->
+<!--<p>V : {{v}}</p>-->
+<!--<br>-->
+<!--{% endfor %}-->
+
+<!--<h2>H</h2>-->
+
+<!--var preload_resource = {{ h.literal(resource_json) }}<br><br>-->
+<!--var resource_url = {{ h.literal(resource_url) }}<br><br>-->
+<!--var preview_metadata = {{ h.literal(preview_metadata) }}<br><br>-->
+
+<!--<br>-->
+
+<!--<h2>Resource</h2>-->
+<!--{% for k, v in resource.items() %}-->
+<!--<p>K : {{k}}</p>-->
+<!--<p>V : {{v}}</p>-->
+<!--<br>-->
+<!--{% endfor %}-->
+<!--</div>-->
+

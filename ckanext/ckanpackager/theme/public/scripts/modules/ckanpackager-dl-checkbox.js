@@ -72,9 +72,9 @@ this.ckan.module('ckanpackager-dl-checkbox', function(jQuery, _){
 
     return {
         initialize: function(){
-            // console.log("I've been initialized for element: ", this.el);
-            // console.log("I've got options: ", this.options);
-            // console.log(this.sandbox.jQuery);
+            console.log("I've been initialized for element: ", this.el);
+            console.log("I've got options: ", this.options);
+            console.log(this.sandbox.jQuery);
 
             return create_checkboxes(this);
         }
