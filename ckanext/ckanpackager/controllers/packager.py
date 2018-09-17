@@ -152,6 +152,17 @@ class CkanPackagerController(t.BaseController):
         @param packager_url: The ckanpackager service URL
         @request_params: The parameters to send
         """
+
+        download_payload = {
+            'package': [
+                '/tmp/test-package/file1.txt',
+                '/tmp/test-package/file2.txt',
+                '/tmp/test-package/file3.txt',
+            ]
+        }
+        download_payload_json = json.dumps(download_payload)
+        request_params['download_payload'] = download_payload_json
+
         # Send request
         try:
             request = urllib2.Request(packager_url)
