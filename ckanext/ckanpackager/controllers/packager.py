@@ -153,6 +153,7 @@ class CkanPackagerController(t.BaseController):
         @request_params: The parameters to send
         """
 
+        # Note: These files must exist!
         download_payload = {
             'package': [
                 '/tmp/test-package/file1.txt',
