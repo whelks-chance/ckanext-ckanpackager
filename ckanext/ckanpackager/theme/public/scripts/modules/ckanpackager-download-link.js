@@ -352,8 +352,46 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
             if (cat.length > 0) {
                 send_url = send_url + '?' + cat.join('&');
             }
+
+            downloadPayloadString = self.create_download_payload();
+            encodedDownloadPayloadString = encodeURIComponent(downloadPayloadString)
+            console.log(encodedDownloadPayloadString);
+            send_url += "&downloadpayload=" + encodedDownloadPayloadString
+            console.log("SEND_URL: " + send_url);
+
             $('a.ckanpackager-send', self.$form).attr('href', send_url);
         };
+
+        self.create_download_payload = function() {
+            downloadListString = localStorage.getItem('download_list');
+            console.log(downloadListString);
+            downloadList = JSON.parse(downloadListString);
+            console.log("downloadList:", downloadList);
+            console.log(typeof downloadList);
+
+            downloadPayload = {
+                'package': []
+            }
+
+            var resource;
+            downloadList.forEach(function(resourceID, index) {
+                resource = {}
+                resource[resourceID] = '/tmp/test-package/file#.txt'.replace("#", index+1)
+                downloadPayload.package.push(resource);
+            });
+
+//            downloadPayload = {
+//                'package': [
+//                    '/tmp/test-package/file1.txt',
+//                    '/tmp/test-package/file2.txt',
+//                    '/tmp/test-package/file3.txt',
+//                ]
+//            }
+            console.log(downloadPayload.package);
+            downloadPayloadString = JSON.stringify(downloadPayload);
+            console.log(downloadPayloadString);
+            return downloadPayloadString;
+        }
 
         /**
          * _hide_me_timeout
