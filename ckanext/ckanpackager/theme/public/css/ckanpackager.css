@@ -77,3 +77,7 @@ a.packager-link.packager-link-active:hover {
 .filesize {
     color: #2a6496;
 }
+
+.selected > .filesize {
+    color: orangered;
+}

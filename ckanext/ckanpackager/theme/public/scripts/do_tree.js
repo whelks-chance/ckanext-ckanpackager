@@ -280,7 +280,7 @@ function get_resource_tree(resource_url) {
             entered.append("span").attr("class", "filesize")
                 .html(function (d) {
                     if (d.size) {
-                        return formatBytes(parseInt(d.size), 2);
+                        return ' ' + formatBytes(parseInt(d.size), 2);
                     } else {
                         return ''
                     }
