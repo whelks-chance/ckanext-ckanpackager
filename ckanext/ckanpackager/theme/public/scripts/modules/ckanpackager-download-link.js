@@ -354,42 +354,33 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
             }
 
             downloadPayloadString = self.create_download_payload();
-            encodedDownloadPayloadString = encodeURIComponent(downloadPayloadString)
-            console.log(encodedDownloadPayloadString);
-            send_url += "&downloadpayload=" + encodedDownloadPayloadString
-            console.log("SEND_URL: " + send_url);
+            console.log("downloadPayloadString=", downloadPayloadString);
+            self.link_parts['download_payload'] = downloadPayloadString;
 
             $('a.ckanpackager-send', self.$form).attr('href', send_url);
         };
 
         self.create_download_payload = function() {
             downloadListString = localStorage.getItem('download_list');
-            console.log(downloadListString);
+            if (!downloadListString) {
+                downloadListString = "[]";
+            }
             downloadList = JSON.parse(downloadListString);
-            console.log("downloadList:", downloadList);
-            console.log(typeof downloadList);
+
+            downloadPackageListString = localStorage.getItem('download_package_list');
+            if (!downloadPackageListString) {
+                downloadPackageListString = "[]";
+            }
+            downloadPackageList = JSON.parse(downloadPackageListString);
 
             downloadPayload = {
-                'package': []
+                'download_list': downloadList,
+                'download_package_list': downloadPackageList
             }
+            console.log("downloadPayload:", downloadPayload);
 
-            var resource;
-            downloadList.forEach(function(resourceID, index) {
-                resource = {}
-                resource[resourceID] = '/tmp/test-package/file#.txt'.replace("#", index+1)
-                downloadPayload.package.push(resource);
-            });
-
-//            downloadPayload = {
-//                'package': [
-//                    '/tmp/test-package/file1.txt',
-//                    '/tmp/test-package/file2.txt',
-//                    '/tmp/test-package/file3.txt',
-//                ]
-//            }
-            console.log(downloadPayload.package);
             downloadPayloadString = JSON.stringify(downloadPayload);
-            console.log(downloadPayloadString);
+
             return downloadPayloadString;
         }
 

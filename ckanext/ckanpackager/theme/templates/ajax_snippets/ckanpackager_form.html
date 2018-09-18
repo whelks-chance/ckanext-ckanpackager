@@ -1,5 +1,6 @@
 <div>
     <div class="ckanpackager-form">
+        <input id="download_payload" type="text" name="download_payload" value="['cat','dog','rabbit']"/>
         {% if c.userobj %}
             {% if is_record == 'true' %}
                 <p>{{ _('The record will be packaged and sent to the email address registered with your account.') }}</p>

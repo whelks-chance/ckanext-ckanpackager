@@ -25,6 +25,12 @@ class CkanPackagerController(t.BaseController):
         @param package_id: The package id (request parameter)
         @param resource_id: The resource id (Request parameter)
         """
+
+        if 'download_payload' in t.request.params:
+            print('DL:', t.request.params['download_payload'])
+            # print t.request.params.keys()
+            # print t.request.params
+
         self.package_id = package_id
         self.resource_id = resource_id
         if 'destination' in t.request.params:
@@ -153,12 +159,11 @@ class CkanPackagerController(t.BaseController):
         @request_params: The parameters to send
         """
 
-        # Note: These files must exist!
         download_payload = {
             'package': [
-                '/tmp/test-package/file1.txt',
-                '/tmp/test-package/file2.txt',
-                '/tmp/test-package/file3.txt',
+                'A',
+                'B',
+                'C'
             ]
         }
         download_payload_json = json.dumps(download_payload)
