@@ -1,0 +1,15 @@
+<div>
+    <div class="ckanpackager-form">
+
+    <form action="/queue_resource_list" method="post">
+        <input id="download_payload" type="text" name="download_payload" value='{"data": ["cat","dog","rabbit"]}'/>
+
+        <button class="ckanpackager-send btn btn-primary" type="submit">POST DATA</button>
+
+        <!--{% block action_buttons %}-->
+            <!--<a class="ckanpackager-send btn btn-primary" href="#">{{ _('Send') }}</a>-->
+            <!--<a class="ckanpackager-cancel btn btn-warning" href="#">{{ _('Cancel') }}</a>-->
+        <!--{% endblock %}-->
+    </form>
+    </div>
+</div>

@@ -6,7 +6,10 @@ import logging
 import ckan.model as model
 
 from ckan.lib.cli import CkanCommand
-from ckanext.ckanpackager.model.stat import Base
+from ckanext.ckanpackager.model.stat import Base as b1
+from ckanext.ckanpackager.model.DownloadQueue import Base as b2
+from ckanext.ckanpackager.model.QueueContent import Base as b3
+from ckanext.ckanpackager.model.UserInfo import Base as b4
 
 log = logging.getLogger()
 
@@ -25,8 +28,11 @@ class CKANPackagerCommand(CkanCommand):
     def command(self):
         self._load_config()
         # Create the table if it doesn't exist
-        self._create_table()
+        self._create_tables()
 
     @staticmethod
-    def _create_table():
-        Base.metadata.create_all(model.meta.engine)
+    def _create_tables():
+        b1.metadata.create_all(model.meta.engine)
+        b2.metadata.create_all(model.meta.engine)
+        b3.metadata.create_all(model.meta.engine)
+        b4.metadata.create_all(model.meta.engine)

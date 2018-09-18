@@ -39,6 +39,11 @@ class CkanPackagerPlugin(p.SingletonPlugin):
         map_route.connect('package_resource', '/dataset/{package_id}/resource/{resource_id}/package',
                           controller='ckanext.ckanpackager.controllers.packager:CkanPackagerController',
                           action='package_resource')
+
+        map_route.connect('queue_resource_list', '/queue_resource_list',
+                          controller='ckanext.ckanpackager.controllers.package_list:PackageListController',
+                          action='queue_resource_list')
+
         return map_route
 
     def update_config(self, app_config):

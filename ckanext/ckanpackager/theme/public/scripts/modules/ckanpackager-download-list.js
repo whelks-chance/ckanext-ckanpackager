@@ -1,47 +1,10 @@
-this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
-
-    /**
-     * parseqs
-     *
-     * Parse a url's query string into path and qs components, where qs is a map of var name to value. Values are
-     * not url decoded.
-     */
-    function parseurl(url) {
-        var parts = url.split('?');
-        if (parts.length === 1) {
-            return {
-                path: parts[0],
-                qs: {}
-            };
-        }
-        var qs = {};
-        var qs_parts = parts[1].split('&');
-        for (var i = 0; i < qs_parts.length; i++) {
-            var v_parts = qs_parts[i].split('=');
-            var name = v_parts[0];
-            var value = '';
-            if (v_parts.length === 1) {
-                value = 1;
-            } else {
-                value = v_parts[1]
-            }
-            if (qs[name]) {
-                qs.name.push(value);
-            } else {
-                qs[name] = [value];
-            }
-        }
-        return {
-            path: parts[0],
-            qs: qs
-        };
-    }
+this.ckan.module('ckanpackager-download-list', function(jQuery, _) {
 
     /**
      * Creates an object representing a single download link on the page.
      * @param module    the module object passed to the initialize function.
      */
-    function createDownloadLink(module) {
+    function createForm(module) {
         var self = {};
         // copy over the module level variables we need
         self.el = module.el;
@@ -64,7 +27,7 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
             self.disableButton();
             // request the template from the server, this is async
             var template_options = {resource_id: self.options.resource_id, is_record: self.options.is_record};
-            self.sandbox.client.getTemplate('ckanpackager_form.html', template_options, self._onReceiveSnippet);
+            self.sandbox.client.getTemplate('ckanpackager_post_form.html', template_options, self._onReceiveSnippet);
         };
 
         /**
@@ -87,11 +50,7 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
         self.enableButton = function() {
             self.el.removeClass('disabled');
             self.el.on('click', function(e) {
-                // TODO: Bugfix, update links parts with the url of the clicked link
-                self.link_parts = parseurl($(this).attr('href'));
-                if (typeof(self.link_parts['qs']['anon']) !== 'undefined') {
-                    delete self.link_parts['qs']['anon'];
-                }
+
                 self._update_send_link();
                 self.display($(this));
                 e.stopPropagation();
@@ -118,25 +77,24 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
                 return;
             }
 
-            self.link_parts = parseurl(url);
-            self.is_anon = (typeof(self.link_parts['qs']['anon']) !== 'undefined');
+            self.link_parts = {
+                'path': url
+            };
 
-            if (typeof(self.link_parts['qs']['anon']) !== 'undefined') {
-                delete self.link_parts['qs']['anon'];
-            }
+            // self.is_anon = (typeof(self.link_parts['qs']['anon']) !== 'undefined');
+
+            // if (typeof(self.link_parts['qs']['anon']) !== 'undefined') {
+            //     delete self.link_parts['qs']['anon'];
+            // }
 
             // Prepare object
             self.$form = self._make_form(html);
 
             // Setup the send action
+            // FIXME don't bother updatinng this url
+            //TODO add it as a hidden field instead
             self._update_send_link();
 
-            // Update send action when email address is entered
-            if (self.is_anon) {
-                $('input.ckanpackager-email', self.$form).change(function() {
-                    self._update_send_link();
-                });
-            }
 
             // enable the button
             self.enableButton();
@@ -315,43 +273,13 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
          */
         self._update_send_link = function() {
             // Some plugin will change URL without page reload, so ensure we get latest destination & filters
-            var window_link_parts = parseurl(window.location.href);
-            self.link_parts['qs']['destination'] = [encodeURIComponent(window.location.href)];
-            if (window_link_parts['qs']['filters']) {
-                self.link_parts['qs']['filters'] = window_link_parts['qs']['filters'];
-            }
-            // Add offset/limit/sort if needed
-            delete self.link_parts['qs']['offset'];
-            delete self.link_parts['qs']['limit'];
-            delete self.link_parts['qs']['sort'];
-            if (self.offset !== null && self.limit !== null) {
-                if (self.$form.find('input[name=content]:checked').val() === 'page') {
-                    self.link_parts['qs']['offset'] = [self.offset];
-                    self.link_parts['qs']['limit'] = [self.limit];
-                    if (self.sort) {
-                        self.link_parts['qs']['sort'] = [self.sort];
-                    }
-                }
-            }
-            if (self.$form.find('input[name=format]:checked').val() === 'tsv') {
-                self.link_parts['qs']['format'] = ['tsv'];
-            } else {
-                self.link_parts['qs']['format'] = ['csv'];
-            }
+            // var window_link_parts = parseurl(window.location.href);
+
+            // self.link_parts['qs']['destination'] = [encodeURIComponent(window.location.href)];
+
+
 
             var send_url = self.link_parts['path'];
-            if (self.is_anon) {
-                self.link_parts['qs']['email'] = [encodeURIComponent($('input.ckanpackager-email', self.$form).val())];
-            }
-            var cat = [];
-            for (var i in self.link_parts['qs']) {
-                for (var j in self.link_parts['qs'][i]) {
-                    cat.push(String(i) + "=" + String(self.link_parts['qs'][i][j]));
-                }
-            }
-            if (cat.length > 0) {
-                send_url = send_url + '?' + cat.join('&');
-            }
 
             downloadPayloadString = self.create_download_payload();
             console.log("downloadPayloadString=", downloadPayloadString);
@@ -415,9 +343,9 @@ this.ckan.module('ckanpackager-download-link', function(jQuery, _) {
 
     return {
         initialize: function() {
-            console.log('old module loaded');
+            console.log('list module loaded');
 
-            return createDownloadLink(this);
+            return createForm(this);
         }
     }
 });
