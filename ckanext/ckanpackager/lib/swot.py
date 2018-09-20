@@ -1,3 +1,5 @@
+# https://github.com/leereilly/swot
+
 import sys
 import re
 import tldextract

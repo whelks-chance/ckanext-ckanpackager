@@ -15,6 +15,19 @@
     {% snippet "user/snippets/recaptcha.html", public_key=g.recaptcha_publickey %}
   {% endif %}
 
+  {% import 'user/eula_text.html' as eula_text %}
+
+
+    <label class="control-label" for="field-description">EULA</label>
+    <div class="controls ">
+      <textarea id="field-description" name="desc" cols="20" rows="5" placeholder="" readonly>
+        {{ eula_text.eula_text}}
+      </textarea>
+    </div>
+
+    {{ form.checkbox('eula_accept', label=_('Accept EULA'), checked=false) }}
+
+
   <div class="form-actions">
     {% block form_actions %}
     <button class="btn btn-primary" type="submit" name="save">{{ _("Create Account") }}</button>

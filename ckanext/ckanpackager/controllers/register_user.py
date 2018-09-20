@@ -12,8 +12,6 @@ from ckanext.ckanpackager.model.UserInfo import BIDUserInfo
 _ = t._
 
 
-
-
 class CustomUserController(UserController):
 
     def register(self, data=None, errors=None, error_summary=None):
@@ -67,11 +65,14 @@ class CustomUserController(UserController):
         return render('user/new.html')
 
     def _save_new(self, context):
+        print(request.params)
         try:
             data_dict = logic.clean_dict(unflatten(
                 logic.tuplize_dict(logic.parse_params(request.params))))
 
             self._validate_academic_email(request.params['email'])
+            # self._validate_eula_accept(request.params['email'])
+
 
             context['message'] = data_dict.get('log_message', '')
             captcha.check_recaptcha(request)
@@ -133,7 +134,7 @@ class CustomUserController(UserController):
             print('no user info to save')
 
     def _validate_academic_email(self, email):
-        if '@' in email:
+        if len(email) and '@' in email:
             email = email.split('@')[1]
             if not Swot.is_academic(email):
                 raise ValidationError(
@@ -142,7 +143,8 @@ class CustomUserController(UserController):
                     }
                 )
         else:
-            raise ValidationError('Not a valid email')
-
-# class NotAcademicEmailError(ValidationError):
-#     pass
+            raise ValidationError(
+                {
+                    'email': ['This is not a valid academic email for signup']
+                }
+            )
