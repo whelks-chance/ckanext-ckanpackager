@@ -71,7 +71,7 @@ class CustomUserController(UserController):
                 logic.tuplize_dict(logic.parse_params(request.params))))
 
             self._validate_academic_email(request.params['email'])
-            # self._validate_eula_accept(request.params['email'])
+            self._validate_eula_accept(request.params)
 
 
             context['message'] = data_dict.get('log_message', '')
@@ -146,5 +146,14 @@ class CustomUserController(UserController):
             raise ValidationError(
                 {
                     'email': ['This is not a valid academic email for signup']
+                }
+            )
+
+    def _validate_eula_accept(self, request_params):
+
+        if not 'eula_accept' in request_params :
+            raise ValidationError(
+                {
+                    'eula_accept': ['You must accept the EULA to continue']
                 }
             )

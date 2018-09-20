@@ -286,7 +286,7 @@ this.ckan.module('ckanpackager-download-list', function(jQuery, _) {
             self.link_parts['download_payload'] = downloadPayloadString;
 
             // $('a.ckanpackager-send', self.$form).attr('href', send_url);
-            $('#download_payload', self.$form).attr('value', downloadPayloadString);
+            $('#download_payload', self.$form).attr('value', downloadPayloadString).css('visibility', 'hidden');
 
 
         };

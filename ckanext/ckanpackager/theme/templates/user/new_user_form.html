@@ -17,16 +17,30 @@
 
   {% import 'user/eula_text.html' as eula_text %}
 
-
+<div class="control-group control-medium">
     <label class="control-label" for="field-description">EULA</label>
     <div class="controls ">
-      <textarea id="field-description" name="desc" cols="20" rows="5" placeholder="" readonly>
+      <textarea id="field-description"
+                style="background-color: white"
+                name="desc" cols="20" rows="8" placeholder="" readonly>
         {{ eula_text.eula_text}}
       </textarea>
     </div>
+  </div>
 
-    {{ form.checkbox('eula_accept', label=_('Accept EULA'), checked=false) }}
+  <div class="control-group control-medium">
+    <label class="control-label" for="eula-accept">Accept EULA</label>
+    <div class="controls ">
+      <input id="eula-accept" name="eula_accept" type="checkbox" style="width: 1.5em; vertical-align: top">
+    </div>
+  </div>
 
+    <!--{{ form.checkbox('eula_accept', label=_('Accept EULA'), checked=false) }}-->
+
+  <div class="data-protection">
+    <p>Data Protection</p>
+    <p>Cardiff University will use your personal data in accordance with data protection legislation to process your requests. For more information please read our privacy notice.</p>
+  </div>
 
   <div class="form-actions">
     {% block form_actions %}
