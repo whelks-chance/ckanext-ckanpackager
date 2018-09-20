@@ -1,0 +1,3 @@
+ckan
+six
+tldextract==1.5.1

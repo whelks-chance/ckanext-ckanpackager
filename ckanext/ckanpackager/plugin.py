@@ -1,4 +1,5 @@
 import ckan.plugins as p
+
 from ckanext.ckanpackager.lib.helpers import should_show_format_options
 from ckanext.ckanpackager.lib.utils import url_for_package_resource
 
@@ -43,6 +44,10 @@ class CkanPackagerPlugin(p.SingletonPlugin):
         map_route.connect('queue_resource_list', '/queue_resource_list',
                           controller='ckanext.ckanpackager.controllers.package_list:PackageListController',
                           action='queue_resource_list')
+
+        map_route.connect('/user/register',
+                    controller='ckanext.ckanpackager.controllers.register_user:CustomUserController',
+                    action='register')
 
         return map_route
 

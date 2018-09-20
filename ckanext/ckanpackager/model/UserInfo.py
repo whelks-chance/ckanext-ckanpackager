@@ -27,4 +27,3 @@ class BIDUserInfo(Base):
     user = Column(types.UnicodeText,
            ForeignKey(model.user_table.c.id, onupdate='CASCADE',
                       ondelete='CASCADE'), nullable=False)
-

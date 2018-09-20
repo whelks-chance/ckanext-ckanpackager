@@ -279,13 +279,16 @@ this.ckan.module('ckanpackager-download-list', function(jQuery, _) {
 
 
 
-            var send_url = self.link_parts['path'];
+            // var send_url = self.link_parts['path'];
 
             downloadPayloadString = self.create_download_payload();
             console.log("downloadPayloadString=", downloadPayloadString);
             self.link_parts['download_payload'] = downloadPayloadString;
 
-            $('a.ckanpackager-send', self.$form).attr('href', send_url);
+            // $('a.ckanpackager-send', self.$form).attr('href', send_url);
+            $('#download_payload', self.$form).attr('value', downloadPayloadString);
+
+
         };
 
         self.create_download_payload = function() {
