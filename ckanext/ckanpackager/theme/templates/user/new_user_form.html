@@ -15,7 +15,7 @@
     {% snippet "user/snippets/recaptcha.html", public_key=g.recaptcha_publickey %}
   {% endif %}
 
-  {% import 'user/eula_text.html' as eula_text %}
+  {% import 'ajax_snippets/eula_text.html' as eula_text %}
 
 <div class="control-group control-medium">
     <label class="control-label" for="field-description">EULA</label>
@@ -36,6 +36,17 @@
   </div>
 
     <!--{{ form.checkbox('eula_accept', label=_('Accept EULA'), checked=false) }}-->
+  {% resource 'ckanext-ckanpackager/main' %}
+
+
+  <button type="button" data-module="ckanpackager-dl-popup"
+          data-module-id="package.id"
+          data-module-title="package.title"
+          data-module-license_title="license_title"
+          data-module-num_resources="num_resources">
+    <i class="fa fa-info-circle"></i>
+  </button>
+
 
   <div class="data-protection">
     <p>Data Protection</p>

@@ -45,13 +45,15 @@ a.packager-link {
     display: block;
 }
 
+/*#085871*/
+
 a.packager-link.packager-link-active,
 a.packager-link.packager-link-active:hover {
-    background-color: #EBEBEB;
-    color: #000;
+    color: honeydew;
     cursor: default;
     display: block;
     height: 28px;
+    background: cadetblue none bottom;
 }
 
 .actions li {
@@ -80,4 +82,29 @@ a.packager-link.packager-link-active:hover {
 
 .selected > .filesize {
     color: orangered;
+}
+
+.popover {
+
+  /* We're reusing the .nums class from the dataset read page,
+   * but we don't want the border, margin and padding, get rid of them. */
+  /*border: none;*/
+  margin: 0;
+  /*padding: 0;*/
+
+  /* We want the license and numbers to appear side by side, so float the
+   * numbers list to the left and make it take up just over half of
+   * the width of the popover. */
+  float: left;
+  width: 80%;
+    max-width: 80%;
+
+  /* Prevent the words in the license from being wrapped mid-word. */
+  word-break: keep-all;
+    max-height: 80vh;
+    overflow-y: scroll;
+
+    padding: 2em;
+    border: 0.3em rgba(95,158,160,0.3) solid;
+    border-radius: 0.5em
 }

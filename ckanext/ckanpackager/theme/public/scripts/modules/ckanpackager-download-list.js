@@ -137,7 +137,7 @@ this.ckan.module('ckanpackager-download-list', function(jQuery, _) {
                 top: String(position.top) + "px",
                 left: String(position.left) + "px"
             });
-            self.$form.stop().fadeIn(100, function() {
+            self.$form.stop().slideDown(500, function() {
                 $('input.ckanpackager-email', self.$form).focus();
             });
             self.el.addClass('packager-link-active');
@@ -154,7 +154,7 @@ this.ckan.module('ckanpackager-download-list', function(jQuery, _) {
                 return false;
             }
             self.visible = false;
-            self.$form.stop().fadeOut(100);
+            self.$form.stop().slideUp(500);
 
             $('.packager-link-active').removeClass('packager-link-active');
         };

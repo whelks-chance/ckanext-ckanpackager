@@ -1,5 +1,7 @@
 import urlparse
 import ckan.plugins.toolkit as t
+import mammoth as mammoth
+import os
 
 
 class NotADownloadableResource(Exception):
@@ -89,3 +91,22 @@ def redirect_to(destination, **kw):
         else:
             new_kw[k] = v
     t.redirect_to(dest_base.encode('utf8'), **new_kw)
+
+
+class Convert:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def docx_to_html(cls, filepath):
+        with open(filepath, "rb") as docx_file:
+            result = mammoth.convert_to_html(docx_file)
+            html = result.value  # The generated HTML
+            print(html)
+            messages = result.messages  # Any messages, such as warnings during conversion
+            print(messages)
+
+
+if __name__ == '__main__':
+    print('basepath', os.path.abspath('.'))
+    Convert.docx_to_html('../../../LetterOfUnderstanding_DraftMEGUK_edit.docx')

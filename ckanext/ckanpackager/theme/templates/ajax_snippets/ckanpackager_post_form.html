@@ -1,6 +1,6 @@
 
 <div>
-    <div class="ckanpackager-form">
+    <div class="ckanpackager-form" style="padding: 2em; border: 0.3em rgba(95,158,160,0.3) solid; border-radius: 0.5em">
 
         <form action="/queue_resource_list" method="post">
             <p>{{ _('All the currently selected records will be packaged and a FileZilla queue file sent to the email address registered with your account.') }}</p>
@@ -12,7 +12,7 @@
             {% block action_buttons %}
             <button class="ckanpackager-send btn btn-primary" type="submit">Download All</button>
             <!--<a class="ckanpackager-send btn btn-primary" href="#">{{ _('Send') }}</a>-->
-            <!--<a class="ckanpackager-cancel btn btn-warning" href="#">{{ _('Cancel') }}</a>-->
+            <a class="ckanpackager-cancel btn btn-warning" href="#">{{ _('Cancel') }}</a>
             {% endblock %}
         </form>
     </div>
