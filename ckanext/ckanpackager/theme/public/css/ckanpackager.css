@@ -108,3 +108,13 @@ a.packager-link.packager-link-active:hover {
     border: 0.3em rgba(95,158,160,0.3) solid;
     border-radius: 0.5em
 }
+
+.accept_group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.accept_group_checkbox {
+    margin-left: 2em;
+    margin-right: 4em;
+}

@@ -1,61 +1,213 @@
 {% import "macros/form.html" as form %}
 
 <form id="user-register-form" class="form-horizontal" action="" method="post">
-  {{ form.errors(error_summary) }}
-  {{ form.input("name", id="field-username", label=_("Username"), placeholder=_("username"), value=data.name, error=errors.name, classes=["control-medium"]) }}
-  {{ form.input("fullname", id="field-fullname", label=_("Full Name"), placeholder=_("Joe Bloggs"), value=data.fullname, error=errors.fullname, classes=["control-medium"]) }}
+    {{ form.errors(error_summary) }}
+    {{ form.input("name", id="field-username", label=_("Username"), placeholder=_("username"), value=data.name, error=errors.name, classes=["control-medium"]) }}
+    {{ form.input("fullname", id="field-fullname", label=_("Full Name"), placeholder=_("Joe Bloggs"), value=data.fullname, error=errors.fullname, classes=["control-medium"]) }}
 
     {{ form.input("why", id="field-why", label=_("Why"), placeholder=_("Why are you signing up??"), value=data.why, error=errors.why, classes=["control-medium"]) }}
 
-  {{ form.input("email", id="field-email", label=_("Email"), type="email", placeholder=_("joe@example.com"), value=data.email, error=errors.email, classes=["control-medium"]) }}
-  {{ form.input("password1", id="field-password", label=_("Password"), type="password", placeholder="••••••••", value=data.password1, error=errors.password1, classes=["control-medium"]) }}
-  {{ form.input("password2", id="field-confirm-password", label=_("Confirm"), type="password", placeholder="••••••••", value=data.password2, error=errors.password1, classes=["control-medium"]) }}
+    {{ form.input("email", id="field-email", label=_("Email"), type="email", placeholder=_("joe@example.com"), value=data.email, error=errors.email, classes=["control-medium"]) }}
+    {{ form.input("password1", id="field-password", label=_("Password"), type="password", placeholder="••••••••", value=data.password1, error=errors.password1, classes=["control-medium"]) }}
+    {{ form.input("password2", id="field-confirm-password", label=_("Confirm"), type="password", placeholder="••••••••", value=data.password2, error=errors.password1, classes=["control-medium"]) }}
 
-  {% if g.recaptcha_publickey %}
+    {% if g.recaptcha_publickey %}
     {% snippet "user/snippets/recaptcha.html", public_key=g.recaptcha_publickey %}
-  {% endif %}
+    {% endif %}
 
-  {% import 'ajax_snippets/eula_text.html' as eula_text %}
+    {% import 'ajax_snippets/eula_text.html' as eula_text %}
 
-<div class="control-group control-medium">
-    <label class="control-label" for="field-description">EULA</label>
-    <div class="controls ">
-      <textarea id="field-description"
-                style="background-color: white"
-                name="desc" cols="20" rows="8" placeholder="" readonly>
-        {{ eula_text.eula_text}}
-      </textarea>
-    </div>
-  </div>
+    <!--<div class="control-group control-medium">-->
+    <!--<label class="control-label" for="field-description">EULA</label>-->
+    <!--<div class="controls ">-->
+    <!--<textarea id="field-description"-->
+    <!--style="background-color: white"-->
+    <!--name="desc" cols="20" rows="8" placeholder="" readonly>-->
+    <!--{{ eula_text.eula_text}}-->
+    <!--</textarea>-->
+    <!--</div>-->
+    <!--</div>-->
 
-  <div class="control-group control-medium">
-    <label class="control-label" for="eula-accept">Accept EULA</label>
-    <div class="controls ">
-      <input id="eula-accept" name="eula_accept" type="checkbox" style="width: 1.5em; vertical-align: top">
-    </div>
-  </div>
+
+    <!--<div class="control-group control-medium">-->
+        <!--<label class="control-label" for="eula-accept">Accept EULA</label>-->
+        <!--<div class="controls ">-->
+            <!--<input id="eula-accept" name="eula_accept" type="checkbox" style="width: 1.5em; vertical-align: top">-->
+        <!--</div>-->
+    <!--</div>-->
+
 
     <!--{{ form.checkbox('eula_accept', label=_('Accept EULA'), checked=false) }}-->
-  {% resource 'ckanext-ckanpackager/main' %}
+    {% resource 'ckanext-ckanpackager/main' %}
 
 
-  <button type="button" data-module="ckanpackager-dl-popup"
-          data-module-id="package.id"
-          data-module-title="package.title"
-          data-module-license_title="license_title"
-          data-module-num_resources="num_resources">
-    <i class="fa fa-info-circle"></i>
-  </button>
+    <!--<button type="button" data-module="ckanpackager-dl-popup"-->
+            <!--data-module-id="package.id"-->
+            <!--data-module-title="package.title"-->
+            <!--data-module-license_title="license_title"-->
+            <!--data-module-num_resources="num_resources">-->
+        <!--<i class="fa fa-info-circle"></i>-->
+    <!--</button>-->
+
+    <h2>Letter of Understanding</h2>
+    <div class="agreement_1">
+        <p>The UK MEG Partnership has gathered neuroimaging data (MEG UK Data) as a result of the use of MEG and MRI Systems at eight Universities: Aston, Cambridge, Cardiff, Glasgow, Nottingham, Oxford, UCL and York. This document outlines the basis of the transfer of MEG UK Data from Cardiff University Brain Research Imaging Centre (CUBRIC) to researchers at other Universities (the Researcher) and the Researcher’s team of researchers (the Research Team).</p>
+        <p>
+            CUBRIC is willing and able to make MEG UK data available to the Researcher for research purposes, subject to the Researcher being aware of and complying with specific obligations (MEG UK Obligations) relating to the use of MEG UK Data. This document outlines the MEG UK Obligations which the Researcher must respect when using MEG UK Data. It covers the arrangements which are needed to ensure effective and efficient research governance and aims to establish a clear understanding of the roles and responsibilities of the Researcher.</p>
+
+        <p>
+            The Researcher agrees that the signing of this letter does not create any legally binding obligations but recognises that any breach of this letter by the Researcher may put Cardiff University in breach of its obligations to its funders. If the Researcher is an employee of Cardiff University, this may be regarded as a breach of the Researcher’s employment contract with Cardiff University.</p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_1">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_1" name="accept_1" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
 
 
-  <div class="data-protection">
-    <p>Data Protection</p>
-    <p>Cardiff University will use your personal data in accordance with data protection legislation to process your requests. For more information please read our privacy notice.</p>
-  </div>
+    <div class="agreement_2">
+        <p>The Researcher shall use MEG UK Data for research purposes only. The Researcher shall not use MEG UK Data for any commercial purpose or for commercially sponsored research without seeking written consent from CUBRIC. </p>
 
-  <div class="form-actions">
-    {% block form_actions %}
-    <button class="btn btn-primary" type="submit" name="save">{{ _("Create Account") }}</button>
-    {% endblock %}
-  </div>
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_2">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_2" name="accept_2" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_3">
+        <p>The Researcher confirms that the Researcher has gained all necessary ethical approvals or waivers (where applicable) for the use of MEG UK Data and shall provide CUBRIC with evidence of the same upon reasonable request. CUBRIC reserves the right not to effect the transfer of MEG UK Data in the event that ethical approvals for the use of MEG UK Data are not sufficiently evidenced. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_3">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_3" name="accept_3" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_4">
+        <p>The Researcher shall keep all MEG UK Data securely and use MEG UK Data in compliance with all applicable laws, regulations and guidelines for the purposes of their research. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_4">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_4" name="accept_4" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_5">
+        <p>The MEG UK Data will be received by the Researcher and will not be transferred, distributed, released or disclosed by the Researcher to any other organisation or institution including without limitation to any members of the Research Team without the prior written consent of CUBRIC. This prior written consent can be obtained by ensuring that all members of the Research Team who make use of MEG UK Data sign this agreement. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_5">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_5" name="accept_5" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_6">
+        <p>It is acknowledged by the Researcher that where a Research Team member is not employed by the Researcher’s employer, it may be necessary to put in place an additional agreement which could include a data transfer agreement with the employing body of such Research Team member. The Parties acknowledge that, for the purposes only of undertaking the research project, the Research Team shall be permitted access to MEG UK Data, provided that the Researcher shall make the Research Team aware of the MEG UK Obligations, so as to ensure compliance by the Research Team with the MEG UK Obligations. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_6">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_6" name="accept_6" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_7">
+        <p>The Researcher shall have appropriate measures in place to ensure the confidentiality of the MEG UK Data in the Researcher’s custody and shall not attempt to obtain information identifying the individuals who have provided the MEG UK Data. It is imperative that the Researcher does not and procures that the Research Team does not try to identify any individuals from the Requested Data provided. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_7">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_7" name="accept_7" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="agreement_8">
+        <p>The Researcher agrees that the MEG UK Data is confidential in nature and that it shall not share any confidential information with any third parties without the prior written consent of CUBRIC. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_8">I Agree</label>
+            <div class="accept_group_checkbox">
+                <input id="accept_8" name="accept_8" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="agreement_9">
+        <p>The Researcher shall be permitted to publish and disclose information pertaining to or resulting from the Researcher’s use of the Requested Data provided always that: </p>
+        <ol>
+            <li>the Researcher shall inform CUBRIC if the data are to be included in a publication; and</li>
+            <li>all such publications should acknowledge CUBRIC’s and the UK MEG Partnership’s involvement as the source of the Requested Data through co-authorship in accordance with normal academic practice and/or acknowledgement, as defined in Schedule 1.</li>
+        </ol>
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_9">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_9" name="accept_9" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="agreement_10">
+        <p>The Results and any intellectual property rights in relation to the same shall be treated in accordance with any agreements in place under which the Researcher conducts the research project. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_10">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_10" name="accept_10" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="agreement_11">
+        <p>The MEG UK Data are, and shall remain at all times, the sole property of the UK MEG Partnership under the curation of CUBRIC and all unused MEG UK Data including all copies, replications and documents or files containing the same whether in hard copy or electronic copy shall be immediately returned to CUBRIC (or if CUBRIC so requires, destroyed) at CUBRIC’s request. </p>
+
+        <div class="control-group control-medium accept_group">
+            <label class="control-label" for="accept_11">I Agree</label>
+            <div class="accept_group_checkbox ">
+                <input id="accept_11" name="accept_11" type="checkbox" style="width: 1.5em; vertical-align: top">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="schedule_1">
+        <h2>Schedule 1</h2>
+        <h3>Required Acknowledgement for CUBRIC:</h3>
+        <p>The data were collected by researchers supported by the MRC UK MEG Partnership Grant (MR/K005464/1) and provided by CUBRIC at Cardiff University. </p>
+    </div>
+
+
+    <div class="data-protection">
+        <h3>Data Protection</h3>
+        <p>Cardiff University will use your personal data in accordance with data protection legislation to process your requests. For more information please read our privacy notice.</p>
+    </div>
+
+    <div class="form-actions">
+        {% block form_actions %}
+        <button class="btn btn-primary" type="submit" name="save">{{ _("Create Account") }}</button>
+        {% endblock %}
+    </div>
 </form>

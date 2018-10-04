@@ -6,7 +6,7 @@ import ckan.plugins.toolkit as t
 from ckan.lib import captcha
 import ckan.lib.helpers as h
 
-from ckanext.ckanpackager.lib.swot import Swot
+from ckanext.ckanpackager.lib.swot.swot import Swot
 from ckanext.ckanpackager.model.UserInfo import BIDUserInfo
 
 _ = t._
@@ -72,7 +72,6 @@ class CustomUserController(UserController):
 
             self._validate_academic_email(request.params['email'])
             self._validate_eula_accept(request.params)
-
 
             context['message'] = data_dict.get('log_message', '')
             captcha.check_recaptcha(request)
@@ -151,9 +150,14 @@ class CustomUserController(UserController):
 
     def _validate_eula_accept(self, request_params):
 
-        if not 'eula_accept' in request_params :
-            raise ValidationError(
-                {
-                    'eula_accept': ['You must accept the EULA to continue']
-                }
-            )
+        agreement_steps = ['accept_1', 'accept_2', 'accept_3', 'accept_4',
+                           'accept_5', 'accept_6', 'accept_7', 'accept_8',
+                           'accept_9', 'accept_10', 'accept_11']
+
+        for a in agreement_steps:
+            if not a in request_params :
+                raise ValidationError(
+                    {
+                        'letter_of_understanding_acceptance': ['You must accept all parts of the Letter of Understanding to continue']
+                    }
+                )
