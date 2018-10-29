@@ -3,11 +3,18 @@ from ckan.common import c, request
 from ckan.controllers.user import check_access, NotAuthorized, abort, UserController, render, unflatten, get_action, \
     NotFound, DataError, ValidationError, set_repoze_user
 import ckan.plugins.toolkit as t
-from ckan.lib import captcha
+from ckan.lib import captcha, navl
 import ckan.lib.helpers as h
+from ckan.logic.schema import create_schema_for_required_keys
 
 from ckanext.ckanpackager.lib.swot.swot import Swot
 from ckanext.ckanpackager.model.UserInfo import BIDUserInfo
+
+import ckan.lib.navl.dictization_functions as df
+_validate = df.validate
+missing = df.missing
+StopOnError = df.StopOnError
+Invalid = df.Invalid
 
 _ = t._
 
@@ -67,11 +74,16 @@ class CustomUserController(UserController):
     def _save_new(self, context):
         print(request.params)
         try:
-            data_dict = logic.clean_dict(unflatten(
-                logic.tuplize_dict(logic.parse_params(request.params))))
+            data_dict = logic.clean_dict(
+                unflatten(
+                    logic.tuplize_dict(
+                        logic.parse_params(request.params)
+                    )
+                )
+            )
 
             self._validate_academic_email(request.params['email'])
-            self._validate_eula_accept(request.params)
+            self._validate_eula_accept(data_dict)
 
             context['message'] = data_dict.get('log_message', '')
             captcha.check_recaptcha(request)
@@ -148,11 +160,31 @@ class CustomUserController(UserController):
                 }
             )
 
+    def not_empty(self, key, data, errors, context):
+        value = data.get(key)
+        if not value or value is missing:
+            errors[key].append(_('Must be accepted'))
+            raise StopOnError
+
+    def create_extra_signup_schema(self, keys):
+        schema_dict = {}
+        for k in keys:
+            schema_dict[k] = [self.not_empty]
+        return schema_dict
+
     def _validate_eula_accept(self, request_params):
 
         agreement_steps = ['accept_1', 'accept_2', 'accept_3', 'accept_4',
                            'accept_5', 'accept_6', 'accept_7', 'accept_8',
                            'accept_9', 'accept_10', 'accept_11']
+
+        # schema = create_schema_for_required_keys(agreement_steps)
+        schema = self.create_extra_signup_schema(agreement_steps)
+
+        print(type(request_params))
+        results, errors = _validate(request_params, schema)
+        if errors:
+            raise ValidationError(errors)
 
         for a in agreement_steps:
             if not a in request_params :
