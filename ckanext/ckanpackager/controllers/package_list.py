@@ -114,40 +114,39 @@ class PackageListController(t.BaseController):
                 try:
                     rsc = get_action('resource_show')(context, {'id': resource_id})
                     # get_action('package_show')(context, {'id': id})
+
+                    if rsc.get('url_type') == 'upload':
+                        upload = uploader.get_resource_uploader(rsc)
+                        filepath = upload.get_path(rsc['id'])
+
+                        print filepath
+
+                        resource_file_paths.append({
+                            'name': rsc['url'].split('/')[-1],
+                            'file_path': filepath,
+                            'size': rsc['size']
+                        })
+
+                        fileapp = paste.fileapp.FileApp(filepath)
+                        try:
+                            status, headers, app_iter = request.call_application(fileapp)
+                        except OSError:
+                            pass
+
+                            #     abort(404, _('Resource data not found'))
+                            # response.headers.update(dict(headers))
+                            # content_type, content_enc = mimetypes.guess_type(
+                            #     rsc.get('url', ''))
+                            # if content_type:
+                            #     response.headers['Content-Type'] = content_type
+                            # response.status = status
+                            # return app_iter
+                    elif 'url' not in rsc:
+                        pass
+                        # abort(404, _('No download is available'))
+
                 except (NotFound, NotAuthorized):
                     pass
-                    # abort(404, _('Resource not found'))
-
-                if rsc.get('url_type') == 'upload':
-                    upload = uploader.get_resource_uploader(rsc)
-                    filepath = upload.get_path(rsc['id'])
-
-                    print filepath
-
-                    resource_file_paths.append({
-                        'name': rsc['url'].split('/')[-1],
-                        'file_path': filepath,
-                        'size': rsc['size']
-                    })
-
-                    fileapp = paste.fileapp.FileApp(filepath)
-                    try:
-                        status, headers, app_iter = request.call_application(fileapp)
-                    except OSError:
-                        pass
-
-                    #     abort(404, _('Resource data not found'))
-                    # response.headers.update(dict(headers))
-                    # content_type, content_enc = mimetypes.guess_type(
-                    #     rsc.get('url', ''))
-                    # if content_type:
-                    #     response.headers['Content-Type'] = content_type
-                    # response.status = status
-                    # return app_iter
-
-                elif 'url' not in rsc:
-                    pass
-                    # abort(404, _('No download is available'))
 
         request_params['file_paths'] = json.dumps({
             'paths': resource_file_paths

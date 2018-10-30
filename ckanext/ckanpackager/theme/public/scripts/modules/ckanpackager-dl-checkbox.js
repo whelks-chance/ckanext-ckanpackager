@@ -9,6 +9,15 @@ this.ckan.module('ckanpackager-dl-checkbox', function(jQuery, _){
 
         module.el.prop("checked", false);
 
+        var dl_package_list = self.get_data('download_package_list');
+        console.log(dl_package_list);
+        if (dl_package_list === null){
+            dl_package_list = [];
+        } else {
+            dl_package_list = JSON.parse(dl_package_list);
+        }
+        console.log('dl_package_list', dl_package_list.length, dl_package_list);
+
         var dl_list = self.get_data('download_list');
         console.log(dl_list);
         if (dl_list === null){
@@ -16,13 +25,18 @@ this.ckan.module('ckanpackager-dl-checkbox', function(jQuery, _){
         } else {
             dl_list = JSON.parse(dl_list);
         }
-
-        console.log(dl_list.length);
+        console.log('dl_list', dl_list.length, dl_list);
 
         for (var d in dl_list) {
             if (module.options.resourceId === dl_list[d]) {
                 module.el.prop("checked", true);
             }
+        }
+
+        // If whole dataset is selected, ignore the resource selected status
+        // TODO less brute force
+        if ( dl_package_list.indexOf(module.options.packageId) != -1) {
+            module.el.prop("checked", true);
         }
 
         module.el.change(function() {
